@@ -1,0 +1,179 @@
+#include "WarCardGame.h"
+
+
+WarCardGame::WarCardGame() 
+{
+	players = 0;
+	winner = false;
+}
+
+WarCardGame::~WarCardGame() {}
+
+void WarCardGame::gamePlay()
+{
+	cout << "\n\t\t1> Simulation of War (card game) using deque STL\n\t\t";
+	players = input::inputInteger("\n\t\tEnter number of players: ", 2, 4);
+	
+	setCards(cards);
+	shuffleCards(cards);
+	printCards(cards);
+
+	dealCards(cards, player1, player2);
+	playWar(player1, player2);
+
+	//do
+	//{
+
+	//	
+
+	//} while (!winner);
+}
+//////////// Getter ans Setters ////////////
+
+void WarCardGame::setWinner(bool winner)
+{
+	this->winner = winner;
+}
+
+bool WarCardGame::getWinner()
+{
+	return winner;
+}
+void WarCardGame::setPlayers(int players)
+{
+	this->players = players;
+}
+
+int WarCardGame::getPlayers()
+{
+	return players;
+}
+
+void WarCardGame::setCards(deque<int>& cards)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 1; j < 14; j++)
+		{
+			cards.push_back(j);
+		}
+	}
+}
+
+deque<int> WarCardGame::getCards()
+{
+	return cards;
+}
+
+void WarCardGame::shuffleCards(deque<int>& cards)
+{
+	srand(time(0));
+	random_shuffle(cards.begin(), cards.end());
+}
+
+void WarCardGame::printCards(const deque<int>& cards)
+{
+	for (int i = 0; i < cards.size(); i++)
+	{
+		cout << cards[i] << " ";
+	}
+}
+
+// deal cards for player.
+void WarCardGame::dealCards(deque<int>& cards, deque<int>& player1, deque<int>& player2)
+{
+	//int players = input::inputInteger("\n\t\tEnter number of players: ",2,4);
+	if (players == 2)
+	{
+		for (int i = 1; i <= 26; i++)
+		{
+			player1.push_back(cards.front());		// each player get 26 cards.
+			cards.pop_front();
+			player2.push_back(cards.front());
+			cards.pop_front();
+		}
+		cout << "\n\t\tPlayer1 cards: ";
+		for (int i = 0; i < player1.size(); i++)
+		{
+			cout << player1[i] << " ";
+		}
+
+		cout << "\n\t\tPlayer2 cards: ";
+		for (int i = 0; i < player2.size(); i++)
+		{
+			cout << player2[i] << " ";
+		}
+	}
+	
+	else
+	{
+		cout << "\n\t\tToo many players I can't deal with you guys.";
+	}
+}
+
+void WarCardGame::playWar(deque<int>& player1, deque<int>& player2)
+{
+	while (!winner)
+	{
+		if (player1.front() == player2.front())
+		{
+			cout << "\n\t\tWAR!\n\t\t";
+			for (int i = 0; i < 4; i++)
+			{
+				war.push_back(player1.front());
+				player1.pop_front();
+				war.push_back(player2.front());
+				player2.pop_front();
+			}
+			do
+			{
+				if (player1.front() < player2.front())
+				{
+					cout << "\n\t\tPlayer 1: " << player1.front() << "\t\tPlayer 2: " << player2.front() << " -> Player 2 win the War\n";
+					player2.push_back(player1.front());
+					player1.pop_front();
+					player2.insert(player2.end(), war.begin(), war.end());
+					war.clear();
+				}
+				else
+				{
+					cout << "\n\t\tPlayer 1: " << player1.front() << "\t\tPlayer 2: " << player2.front() << " -> Player 1 win the War\n";
+					player1.push_back(player2.front());
+					player2.pop_front();
+					player1.insert(player1.end(), war.begin(), war.end());
+					war.clear();
+				}
+
+			} while (player1.front() == player2.front());
+		}
+		else if (player1.front() > player2.front())
+		{
+			cout << "\n\t\tPlayer 1: " << player1.front() << "\t\tPlayer 2: " << player2.front() << " -> Player 1 win\n";
+			player1.push_back(player2.front());
+			player1.pop_front();
+			player1.push_back(player1.front());
+			player2.pop_front();
+		}
+		else
+		{
+			cout << "\n\t\tPlayer 1: " << player1.front() << "\t\tPlayer 2: " << player2.front() << " -> Player 2 win\n";
+			player2.push_back(player1.front());
+			player1.pop_front();
+			player2.push_back(player2.front());
+			player2.pop_front();
+		}
+		if (player1.empty() || player2.empty())
+		{
+			if (player1.empty())
+			{
+				cout << "\t\tPlayer 2 win\n";
+				winner = true;
+			}
+			else
+			{
+				cout << "\t\tPlayer 1 win\n";
+				winner = true;
+			}
+		}
+	}
+}
