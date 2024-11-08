@@ -1,0 +1,13 @@
+#include "WarCardGame.h"
+#include "ER_Simulation.h"
+#include "CostcoLine.h"
+#include <stdlib.h>
+
+
+
+int main()
+{
+
+	system("cls");
+	return 0;
+}

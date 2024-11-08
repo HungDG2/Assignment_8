@@ -1,0 +1,25 @@
+#include "WarCardGame.h"
+
+
+WarCardGame::WarCardGame()
+{
+}
+
+
+WarCardGame::~WarCardGame()
+{
+}
+
+void WarCardGame:: play()
+{
+	bool winner = false;
+	cout << "\n\t\t1> Simulation of War (card game) using deque STL\n\t\t";
+	cout << "\n\t\tEnter a number of cards per suite: ";
+	int numCards = input::inputInteger("", 1, 13);
+	do
+	{
+
+
+
+	} while (!winner);
+}

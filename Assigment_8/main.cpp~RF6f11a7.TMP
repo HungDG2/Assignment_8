@@ -1,0 +1,74 @@
+#include <stdlib.h>
+#include <deque>
+#include <queue>
+#include <vector>
+#include <iostream>
+#include <random>
+#include "input.h"
+#include "WarCardGame.h"
+
+using namespace std;
+
+
+int main()
+{
+	do
+	{
+		std::cout << "\t\tCMPR131 Chapter 8: Applications using Queue by Group 5\n\t\t"
+			<< std::string(80, char(205))
+			<< "\n\t\t1> Simulation of War (card game) using deque STL"
+			<< "\n\t\t2> Simulation of an emergency room (ER) using prioity queue STL"
+			<< "\n\t\t3> Simulation of checkout lines at Costco using multiple queues STL\n\t\t"
+			<< std::string(80, char(196))
+			<< "\n\t\t0.exit\n\t\t"
+			<< std::string(80, char(205));
+		int option = input::inputInteger("\n\t\tOption: ", 0, 3);
+		switch (option)
+		{
+		case 1: 
+		{
+			WarCardGame game;
+			game.printCards();
+		} break;
+
+		case 2: break;
+		case 3: break;
+		default: std::cout << "ERROR - Invalid Option. Please re-enter."; break;
+		case 0: exit(0);
+		}
+		cout << endl;
+		system("pause");
+		system("cls");
+	} while (true);
+	return 0;
+}
+
+//void gameWar()
+//{
+//	bool winner = false;
+//	deque<int> player1;
+//	deque<int> player2;
+//	cout << "\n\t\t1> Simulation of War (card game) using deque STL\n\t\t";
+//	cout << "\n\t\tEnter a number of cards per suite: ";
+//	int numCards = input::inputInteger("", 1, 13);
+//	// dealing cards
+//	for (int i = 1; i <= numCards; i++)
+//	{
+//		player1.push_back(i);
+//		player2.push_back(i);
+//	}
+//	// shuffle cards
+//	random_device rd;
+//	mt19937 g(rd());
+//	shuffle(player1.begin(), player1.end(), g);
+//	shuffle(player2.begin(), player2.end(), g);
+//
+//	do
+//	{
+//
+//
+//
+//
+//
+//	} while (!winner);
+//}
